@@ -34,19 +34,16 @@ public class DogApiBreedFetcher implements BreedFetcher {
 
         try {
             final Response response = client.newCall(request).execute();
-            try {
-                final JSONObject responseBody = new JSONObject(response.body().string());
 
-                if (responseBody.getString("status").equals("success")) {
-                    final JSONArray subBreeds = responseBody.getJSONArray("message");
-                    List<String> subBreedsArray = new ArrayList<>();
-                    for (int i = 0; i < subBreeds.length(); i++) {
-                        subBreedsArray.add(subBreeds.getString(i));
-                    }
-                    return subBreedsArray;
+            final JSONObject responseBody = new JSONObject(response.body().string());
+
+            if (responseBody.getString("status").equals("success")) {
+                final JSONArray subBreeds = responseBody.getJSONArray("message");
+                List<String> subBreedsArray = new ArrayList<>();
+                for (int i = 0; i < subBreeds.length(); i++) {
+                    subBreedsArray.add(subBreeds.getString(i));
                 }
-            } finally {
-                response.close();
+                return subBreedsArray;
             }
         } catch (IOException e) {
             System.out.println("IOException: " + e);
