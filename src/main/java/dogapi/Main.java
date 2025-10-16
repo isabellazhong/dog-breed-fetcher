@@ -30,7 +30,7 @@ public class Main {
             List<String> subBreeds = breedFetcher.getSubBreeds(breed);
             return subBreeds.size(); 
         } catch (BreedNotFoundException e) {
-            return -1; 
+            return 0; 
         }
 
     }
